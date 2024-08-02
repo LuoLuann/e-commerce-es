@@ -20,8 +20,8 @@ public class Facade{
     public Policy updatePolicy(Policy policy) {
         return policyService.updatePolicy(policy);
     }
-    public void deletePolicy(Policy policy) {
-        policyService.deletePolicy(policy.getId());
+    public void deletePolicy(long id ) {
+        policyService.deletePolicy(id);
     }
     public Policy getPolicy(long id) {
         return policyService.getPolicy(id);
@@ -42,8 +42,8 @@ public class Facade{
     public Price updatePrice(Price price) {
         return priceService.updatePrice(price);
     }
-    public void deletePrice(Price price) {
-        priceService.deletePrice(price.getId());
+    public void deletePrice(long id) {
+        priceService.deletePrice(id);
     }
     
     public Price getPrice(long id) {

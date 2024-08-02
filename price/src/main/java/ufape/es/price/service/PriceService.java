@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ufape.es.price.model.Price;
 import ufape.es.price.repository.PriceRepository;
+import ufape.es.price.service.exception.ObjectNotFoundException;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class PriceService implements IPriceService{
 
     @Override
     public Price getPrice(long id) {
-        return priceRepository.findById(id).orElseThrow(() -> new RuntimeException("Preço de produto não encontrada (id: " + id + ")"));
+        return priceRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Preço de produto não encontrada (id: " + id + ")"));
     }
 
     @Override
