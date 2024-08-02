@@ -8,5 +8,7 @@ public interface IInventory {
     Inventory createInventory(Long sectionId, Inventory inventory);
     Inventory getInventory(Long id);
     List<Inventory> getInventories();
+    Inventory updateInventory(Long id, Inventory inventory);
+    void deleteInventory(Long id);
 }
 

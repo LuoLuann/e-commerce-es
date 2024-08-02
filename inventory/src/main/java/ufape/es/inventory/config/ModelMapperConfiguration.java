@@ -1,4 +1,4 @@
-package config;
+package ufape.es.inventory.config;
 
 import org.modelmapper.Conditions;
 import org.modelmapper.ModelMapper;

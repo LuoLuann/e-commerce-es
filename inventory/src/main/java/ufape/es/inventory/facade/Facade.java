@@ -64,7 +64,7 @@ public class Facade {
         sectionService.deleteSection(id);
     }
 
-    // Methods to Inventory
+    // Methods for Inventory
     public Inventory createInventory(Long sectionId, Inventory inventory) {
         return inventoryService.createInventory(sectionId, inventory);
     }
@@ -75,5 +75,13 @@ public class Facade {
 
     public List<Inventory> getInventories() {
         return inventoryService.getInventories();
+    }
+
+    public Inventory updateInventory(Long id, Inventory inventory) {
+        return inventoryService.updateInventory(id, inventory);
+    }
+
+    public void deleteInventory(Long id) {
+        inventoryService.deleteInventory(id);
     }
 }
