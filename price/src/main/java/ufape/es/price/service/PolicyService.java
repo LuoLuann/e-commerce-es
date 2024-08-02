@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ufape.es.price.model.Policy;
 import ufape.es.price.repository.PolicyRepository;
+import ufape.es.price.service.exception.ObjectNotFoundException;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class PolicyService implements IPolicyService {
 
     @Override
     public Policy getPolicy(long id) {
-        return policyRepository.findById(id).orElseThrow(() -> new RuntimeException("Política de preço não encontrada (id: " + id + ")"));
+        return policyRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Política de preço não encontrada (id: " + id + ")"));
     }
 
     @Override
