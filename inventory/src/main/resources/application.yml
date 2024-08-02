@@ -1,0 +1,14 @@
+spring.application.name: Inventory
+server.port: 8085
+
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/inventory_db
+    username: postgres
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
