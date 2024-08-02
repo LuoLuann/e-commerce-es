@@ -1,6 +1,12 @@
-package com.example.demo.domain;
+package ufape.es.inventory.model;
 
-@Entity @Getter @Setter
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Entity @Data
 public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
