@@ -19,7 +19,7 @@ public class Inventory {
     private long productId;
     @ManyToOne
     @JoinColumn(name = "warehouse_id")
-    private long warehouseId;
+    private Warehouse warehouse;
     private long quantity;
     private Long maximumProducts; 
     private Long minimumProducts; 
