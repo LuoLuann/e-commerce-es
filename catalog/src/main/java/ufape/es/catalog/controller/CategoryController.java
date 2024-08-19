@@ -12,34 +12,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufape.es.catalog.model.Category;
-import ufape.es.catalog.controller.request.CategoryRequest;
-import ufape.es.catalog.controller.response.CategoryResponse;
-import ufape.es.catalog.service.CatalogService;
+import ufape.es.catalog.controlador.request.CategoryRequest;
+import ufape.es.catalog.controlador.response.CategoryResponse;
+import ufape.es.catalog.facade.Catalog;
 import jakarta.validation.Valid;
+import ufape.es.catalog.controlador.request.CategoryRequest;
+import ufape.es.catalog.controlador.response.CategoryResponse;
 
 @RestController
 public class CategoryController {
     @Autowired
-    private CatalogService catalogService;
+    private Catalog catalog;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @PostMapping("/category")
-    public Category registerCategory(@Valid @RequestBody CategoryRequest newObj) {
-        return catalogService.saveCategory(newObj.convertToBasicClass());
+    Category registerCategory(@Valid @RequestBody CategoryRequest newObj) {
+        return catalog.saveCategory(newObj.convertToBasicClass());
     }
 
     @GetMapping("/category")
-    public List<CategoryResponse> listCategories() {
+    List<CategoryResponse> listCategories() {
         List<CategoryResponse> response = new ArrayList<>();
-        for (Category c : catalogService.listCategories())
+        for (Category c : catalog.listCategories()) {
             response.add(new CategoryResponse(c));
+        }
         return response;
     }
 
     @GetMapping("/category/{id}")
-    public CategoryResponse loadCategory(@PathVariable long id) {
-        return new CategoryResponse(catalogService.findCategory(id));
+    CategoryResponse loadCategory(@PathVariable long id) {
+        return new CategoryResponse(catalog.findCategory(id));
     }
 }

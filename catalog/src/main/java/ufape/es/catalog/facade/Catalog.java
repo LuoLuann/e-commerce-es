@@ -8,52 +8,59 @@ import org.springframework.stereotype.Service;
 
 import ufape.es.catalog.model.Category;
 import ufape.es.catalog.model.Product;
-import ufape.es.catalog.cadastro.InterfaceCadastroCategoria;
-import ufape.es.catalog.cadastro.InterfaceCadastroProduct;
 
 @Service
 public class Catalog {
-	@Autowired
-	private InterfaceCadastroCategoria cadastroCategoria;
-	@Autowired
-	private InterfaceCadastroProduct cadastroProduct;
-	public Category salvarCategoria(Category entity) {
-		return cadastroCategoria.salvarCategoria(entity);
-	}
-	public List<Category> listarCategorias() {
-		return cadastroCategoria.listarCategorias();
-	}
-	public void apagarCategoria(Long id) {
-		cadastroCategoria.apagarCategoria(id);
-	}
-	public void apagarCategoria(Category entity) {
-		cadastroCategoria.apagarCategoria(entity);
-	}
-	public Category encontrarCategoria(Long id) {
-		return cadastroCategoria.encontrarCategoria(id);
-	}
-	public List<Product> listarProducts(String descricao) {
-		return cadastroProduct.listarProducts(descricao);
-	}
-	public List<Product> listarProductsPorCategoria(String nome) {
-		return cadastroProduct.listarProductsPorCategoria(nome);
-	}
-	public Product salvarProduct(Product entity) {
-		return cadastroProduct.salvarProduct(entity);
-	}
-	public List<Product> listarProducts() {
-		return cadastroProduct.listarProducts();
-	}
-	public Optional<Product> encontrarProductId(Long id) {
-		return cadastroProduct.encontrarProductId(id);
-	}
-	public void apagarProduct(Long id) {
-		cadastroProduct.apagarProduct(id);
-	}
-	public void apagarProduct(Product entity) {
-		cadastroProduct.apagarProduct(entity);
-	}
+    @Autowired
+    private InterfaceCategoryRepository categoryRepository;
+    @Autowired
+    private InterfaceProductRepository productRepository;
 
+    public Category saveCategory(Category entity) {
+        return categoryRepository.saveCategory(entity);
+    }
 
+    public List<Category> listCategories() {
+        return categoryRepository.listCategories();
+    }
 
+    public void deleteCategory(Long id) {
+        categoryRepository.deleteCategory(id);
+    }
+
+    public void deleteCategory(Category entity) {
+        categoryRepository.deleteCategory(entity);
+    }
+
+    public Category findCategory(Long id) {
+        return categoryRepository.findCategory(id);
+    }
+
+    public List<Product> listProducts(String description) {
+        return productRepository.listProducts(description);
+    }
+
+    public List<Product> listProductsByCategory(String name) {
+        return productRepository.listProductsByCategory(name);
+    }
+
+    public Product saveProduct(Product entity) {
+        return productRepository.saveProduct(entity);
+    }
+
+    public List<Product> listProducts() {
+        return productRepository.listProducts();
+    }
+
+    public Optional<Product> findProductById(Long id) {
+        return productRepository.findProductById(id);
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteProduct(id);
+    }
+
+    public void deleteProduct(Product entity) {
+        productRepository.deleteProduct(entity);
+    }
 }
