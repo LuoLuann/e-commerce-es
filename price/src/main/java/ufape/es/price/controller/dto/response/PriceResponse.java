@@ -3,7 +3,6 @@ package ufape.es.price.controller.dto.response;
 import lombok.Data;
 import org.modelmapper.ModelMapper;
 import ufape.es.price.config.SpringApplicationContext;
-import ufape.es.price.model.Policy;
 import ufape.es.price.model.Price;
 
 import java.math.BigDecimal;

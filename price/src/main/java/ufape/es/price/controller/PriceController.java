@@ -6,12 +6,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import ufape.es.price.controller.dto.request.PolicyRequest;
 import ufape.es.price.controller.dto.request.PriceRequest;
-import ufape.es.price.controller.dto.response.PolicyResponse;
 import ufape.es.price.controller.dto.response.PriceResponse;
 import ufape.es.price.facade.Facade;
-import ufape.es.price.model.Policy;
 import ufape.es.price.model.Price;
 
 import java.util.List;

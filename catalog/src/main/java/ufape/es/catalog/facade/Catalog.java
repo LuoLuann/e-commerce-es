@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 
 import ufape.es.catalog.model.Category;
 import ufape.es.catalog.model.Product;
+import ufape.es.catalog.registration.CategoryRegistrationInterface;
+import ufape.es.catalog.registration.ProductRegistrationInterface;
+
 
 @Service
 public class Catalog {
     @Autowired
-    private InterfaceCategoryRepository categoryRepository;
+    private CategoryRegistrationInterface categoryRepository;
     @Autowired
-    private InterfaceProductRepository productRepository;
+    private ProductRegistrationInterface productRepository;
 
     public Category saveCategory(Category entity) {
         return categoryRepository.saveCategory(entity);

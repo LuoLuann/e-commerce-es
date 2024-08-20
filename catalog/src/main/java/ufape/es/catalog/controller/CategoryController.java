@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufape.es.catalog.model.Category;
-import ufape.es.catalog.controlador.request.CategoryRequest;
-import ufape.es.catalog.controlador.response.CategoryResponse;
+import ufape.es.catalog.controller.request.CategoryRequest;
+import ufape.es.catalog.controller.response.CategoryResponse;
 import ufape.es.catalog.facade.Catalog;
 import jakarta.validation.Valid;
-import ufape.es.catalog.controlador.request.CategoryRequest;
-import ufape.es.catalog.controlador.response.CategoryResponse;
+
 
 @RestController
 public class CategoryController {

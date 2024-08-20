@@ -1,6 +1,23 @@
 version: '2.1'
 
 services:
+
+  postgres-db:
+    image: postgres:16.0
+    restart: always
+    environment:
+      POSTGRES_DB: ecommerce
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      TZ: America/Sao_Paulo
+    ports:
+      - "5433:5432"
+    expose:
+      - "5432"
+    networks:
+      - ecommerce-networks
+    volumes:
+      - pg-data:/var/lib/postgresql/data
   
   catalog:
     build: catalog
@@ -9,19 +26,46 @@ services:
       - "8081:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/ecommerce
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - postgres-db
+
   price:
     build: price
     mem_limit: 256m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerceEs
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - postgres-db
+
   inventory:
     build: inventory
     mem_limit: 256m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerceEs
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=password
+    depends_on:
+      - postgres-db
  
   message:
      image: "rabbitmq:3-management"
      ports: 
        - "5672:5672"
        - "15672:15672"
+
+volumes:
+  pg-data:
+    driver: local
+  keycloak-pg-data:
+    driver: local
+
+networks:
+  ecommerce-networks:
+    driver: bridge

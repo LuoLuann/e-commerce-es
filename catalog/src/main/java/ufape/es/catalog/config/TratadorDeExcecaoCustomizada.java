@@ -8,14 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import br.edu.ufage.topicos.catalogo.cadastro.ObjetoNaoEncontradoException;
-import br.edu.ufage.topicos.catalogo.cadastro.RegistroDuplicadoException;
+
+import ufape.es.catalog.registration.DuplicateRecordException;
+import ufape.es.catalog.registration.ObjectNotFoundException;
 
 @ControllerAdvice
 public class TratadorDeExcecaoCustomizada {
 
-	@ExceptionHandler(RegistroDuplicadoException.class)
-	protected ResponseEntity<Object> tratarExcecaoRegistroDuplicado(RegistroDuplicadoException ex) {
+	@ExceptionHandler(DuplicateRecordException.class)
+	protected ResponseEntity<Object> tratarExcecaoRegistroDuplicado(DuplicateRecordException ex) {
 		Map<String, String> resposta = new HashMap<>();
 		resposta.put("tipo", "RegistroDuplicado");
 		resposta.put("mensagem", ex.getMessage());
@@ -26,8 +27,8 @@ public class TratadorDeExcecaoCustomizada {
 		return new ResponseEntity<>(erro, HttpStatus.BAD_REQUEST);
 	}
 
-	@ExceptionHandler(ObjetoNaoEncontradoException.class)
-	protected ResponseEntity<Object> tratarExcecaoObjetoNaoEncontrado(ObjetoNaoEncontradoException ex) {
+	@ExceptionHandler(ObjectNotFoundException.class)
+	protected ResponseEntity<Object> tratarExcecaoObjetoNaoEncontrado(ObjectNotFoundException ex) {
 		Map<String, String> resposta = new HashMap<>();
 		resposta.put("tipo", "RecursoNaoEncontrado");
 		resposta.put("mensagem", ex.getMessage());
