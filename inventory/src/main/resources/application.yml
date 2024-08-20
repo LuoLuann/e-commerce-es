@@ -4,9 +4,9 @@ server.port: 8085
 spring:
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/inventory_db
+    url: jdbc:postgresql://localhost:5432/topicos
     username: postgres
-    password: 
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: update
