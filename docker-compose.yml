@@ -6,7 +6,9 @@ services:
     mem_limit: 512m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-    
+    networks:
+      - ecommerce-networks
+
   gateway:
     build: gateway
     mem_limit: 512m
@@ -14,12 +16,14 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - ecommerce-networks
 
   postgres-db:
     image: postgres:16.0
     restart: always
     environment:
-      POSTGRES_DB: ecommerce
+      POSTGRES_DB: eCommerce
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       TZ: America/Sao_Paulo
@@ -31,7 +35,7 @@ services:
       - ecommerce-networks
     volumes:
       - pg-data:/var/lib/postgresql/data
-  
+
   catalog:
     build: catalog
     mem_limit: 256m
@@ -39,44 +43,59 @@ services:
       - "8081:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/ecommerce
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=catalog_schema
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
     depends_on:
       - postgres-db
+      - discovery
+    networks:
+      - ecommerce-networks
 
   price:
     build: price
     mem_limit: 256m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerceEs
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=price_schema
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
     depends_on:
       - postgres-db
+      - discovery
+    networks:
+      - ecommerce-networks
 
   inventory:
     build: inventory
     mem_limit: 256m
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerceEs
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=inventory_schema
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
     depends_on:
       - postgres-db
- 
+      - discovery
+    networks:
+      - ecommerce-networks
+
   message:
-     image: "rabbitmq:3-management"
-     ports: 
-       - "5672:5672"
-       - "15672:15672"
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - ecommerce-networks
 
 volumes:
   pg-data:
-    driver: local
-  keycloak-pg-data:
     driver: local
 
 networks:
