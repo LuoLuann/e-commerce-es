@@ -28,7 +28,7 @@ public class CategoryController {
 
     @PostMapping("/category")
     Category registerCategory(@Valid @RequestBody CategoryRequest newObj) {
-        return catalog.saveCategory(newObj.convertToBasicClass());
+        return catalog.saveCategory(newObj.convertToEntity());
     }
 
     @GetMapping("/category")

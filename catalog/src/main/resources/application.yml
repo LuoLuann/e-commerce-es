@@ -26,3 +26,33 @@ eureka:
       defaultZone: http://discovery:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
+
+
+spring.cloud.stream:
+  defaultBinder: rabbit
+  default.contentType: application/json
+  bindings.price-out-0:
+    destination: price
+
+spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
+  maxAttempts: 3
+  backOffInitialInterval: 500
+  backOffMaxInterval: 1000
+  backOffMultiplier: 2.0
+
+spring.cloud.stream.rabbit.bindings.consumeMessage-in-0.consumer:
+  autoBindDlq: true
+  republishToDlq: true
+  
+  
+spring.rabbitmq:
+  host: ${MESSAGE_HOST:localhost}
+  port: 5672
+  username: guest
+  password: guest
+
+---
+spring.config.activate.on-profile: docker
+
+spring.rabbitmq:
+  host: message

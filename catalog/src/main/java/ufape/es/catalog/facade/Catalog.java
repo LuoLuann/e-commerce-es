@@ -55,7 +55,7 @@ public class Catalog {
         return productRepository.listProducts();
     }
 
-    public Optional<Product> findProductById(Long id) {
+    public Product findProductById(Long id) {
         return productRepository.findProductById(id);
     }
 
