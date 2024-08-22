@@ -1,16 +1,17 @@
 version: '2.1'
 
 services:
-  discovery:
+  eureka-server:
     build: discovery
     mem_limit: 512m
     ports:
       - "8761:8761"
+    expose:
+      - "8761"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
       - ecommerce-networks
-
 
   gateway:
     build: gateway
@@ -19,9 +20,9 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
     depends_on:
-      - discovery
+      - eureka-server
     networks:
       - ecommerce-networks
 
@@ -41,7 +42,7 @@ services:
       - ecommerce-networks
     volumes:
       - pg-data:/var/lib/postgresql/data
-    user: "postgres"  # Adiciona esta linha para rodar como usuário 'postgres'
+    user: "postgres"
     command: >
       bash -c "
         postgres -c 'shared_buffers=256MB' &
@@ -52,37 +53,37 @@ services:
         wait
       "
 
-
   catalog:
-    build: catalog
+    build: ./catalog
     mem_limit: 256m
     ports:
-      - "8081:8080"
+      - "8086:8086"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
-      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=catalog_schema
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
-    depends_on:
-      - postgres-db
-      - discovery
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
     networks:
       - ecommerce-networks
+    depends_on:
+      - eureka-server
+      - postgres-db
 
   price:
     build: price
     mem_limit: 256m
+    ports:
+      - "8084:8084"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=price_schema
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
     depends_on:
-      - discovery
+      - eureka-server
       - postgres-db
     networks:
       - ecommerce-networks
@@ -91,19 +92,20 @@ services:
   inventory:
     build: inventory
     mem_limit: 256m
+    ports:
+      - "8085:8085"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=passowrd
+      - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=inventory_schema
-      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery:8761/eureka/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
     depends_on:
       - postgres-db
-      - discovery
+      - eureka-server
     networks:
       - ecommerce-networks
-
 
   message:
     image: "rabbitmq:3-management"

@@ -1,28 +1,48 @@
-#file: noinspection SpringBootApplicationYaml
+server:
+  port: 8080
+
 spring:
   application:
-    name: catalog
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres-db:5432/eCommerce
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-  jpa:
-    properties:
-      hibernate:
-        default_schema: catalog_schema
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    database: postgresql
+    name: gateway
 
+  cloud:
+    gateway:
+      routes:
+        - id: eureka-web-start
+          uri: http://eureka-server:8761
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
 
-server:
-  port: 8086
+        - id: eureka-web-other
+          uri: http://eureka-server:8761
+          predicates:
+            - Path=/eureka/**
+
+        - id: catalog
+          uri: lb://catalog
+          predicates:
+            - Path=/catalog/**
+
+        - id: inventory
+          uri: lb://inventory
+          predicates:
+            - Path=/inventory/**
+
+        - id: price
+          uri: lb://price
+          predicates:
+            - Path=/price/**
 
 eureka:
+  instance:
+    hostname: gateway
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 30
+    lease-expiration-duration-in-seconds: 30
   client:
     service-url:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://eureka-server:8761/ # Alterado aqui
     register-with-eureka: true
     fetch-registry: true

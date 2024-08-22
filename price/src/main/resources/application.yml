@@ -1,4 +1,5 @@
-server.port: 8084
+server:
+  port: 8084
 
 spring:
   application:
@@ -17,10 +18,25 @@ spring:
     show-sql: true
     database: postgresql
 
----
 eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: price
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
   client:
     service-url:
-      defaultZone: http://discovery:8761/eureka/
+      defaultZone: http://eureka-server:8761/ # Alterado aqui
     register-with-eureka: true
     fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: ALWAYS
