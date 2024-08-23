@@ -36,8 +36,8 @@ public class ProductRegistration implements ProductRegistrationInterface {
     }
 
     @Override
-    public Optional<Product> findProductById(Long id) {
-        return productRepository.findById(id);
+    public Product findProductById(Long id) {
+        return productRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Preço de produto não encontrada (id: " + id + ")"));
     }
 
     @Override

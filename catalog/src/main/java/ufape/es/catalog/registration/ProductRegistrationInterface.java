@@ -15,7 +15,7 @@ public interface ProductRegistrationInterface {
 
     List<Product> listProducts();
 
-    Optional<Product> findProductById(Long id);
+    Product findProductById(Long id);
 
     void deleteProduct(Long id);
 
