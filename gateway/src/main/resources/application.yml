@@ -11,14 +11,14 @@ spring:
         - id: eureka-web-start
           uri: http://eureka-server:8761
           predicates:
-            - Path=/eureka/web
+            - Path=/web
           filters:
             - SetPath=/
 
         - id: eureka-web-other
           uri: http://eureka-server:8761
           predicates:
-            - Path=/eureka/**
+            - Path=/**
 
         - id: catalog
           uri: lb://catalog
@@ -43,36 +43,6 @@ eureka:
     lease-expiration-duration-in-seconds: 30
   client:
     service-url:
-      defaultZone: http://eureka-server:8761/ # Alterado aqui
+      defaultZone: http://eureka-server:8761/
     register-with-eureka: true
     fetch-registry: true
-
-
-spring.cloud.stream:
-  defaultBinder: rabbit
-  default.contentType: application/json
-  bindings.price-out-0:
-    destination: price
-
-spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
-  maxAttempts: 3
-  backOffInitialInterval: 500
-  backOffMaxInterval: 1000
-  backOffMultiplier: 2.0
-
-spring.cloud.stream.rabbit.bindings.consumeMessage-in-0.consumer:
-  autoBindDlq: true
-  republishToDlq: true
-  
-  
-spring.rabbitmq:
-  host: ${MESSAGE_HOST:localhost}
-  port: 5672
-  username: guest
-  password: guest
-
----
-spring.config.activate.on-profile: docker
-
-spring.rabbitmq:
-  host: message

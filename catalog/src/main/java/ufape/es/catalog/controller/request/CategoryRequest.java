@@ -17,7 +17,7 @@ public class CategoryRequest {
 
     // private long parentCategory;
 
-    public Category convertToBasicClass() {
+    public Category convertToEntity() {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
         Category category = modelMapper.map(this, Category.class);
         return category;

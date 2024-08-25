@@ -1,12 +1,18 @@
 version: '2.1'
 
 services:
-  discovery:
+  eureka-server:
     build: discovery
     mem_limit: 512m
+    ports:
+      - "8761:8761"
+    expose:
+      - "8761"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-    
+    networks:
+      - ecommerce-networks
+
   gateway:
     build: gateway
     mem_limit: 512m
@@ -14,12 +20,17 @@ services:
       - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
+    depends_on:
+      - eureka-server
+    networks:
+      - ecommerce-networks
 
   postgres-db:
     image: postgres:16.0
     restart: always
     environment:
-      POSTGRES_DB: ecommerce
+      POSTGRES_DB: eCommerce
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       TZ: America/Sao_Paulo
@@ -31,52 +42,82 @@ services:
       - ecommerce-networks
     volumes:
       - pg-data:/var/lib/postgresql/data
-  
+    user: "postgres"
+
+    command: >
+      bash -c "
+        postgres -c 'shared_buffers=256MB' &
+        sleep 5 &&
+        psql -U postgres -d eCommerce -c 'CREATE SCHEMA IF NOT EXISTS catalog_schema;' &&
+        psql -U postgres -d eCommerce -c 'CREATE SCHEMA IF NOT EXISTS price_schema;' &&
+        psql -U postgres -d eCommerce -c 'CREATE SCHEMA IF NOT EXISTS inventory_schema;' &&
+        wait
+      "
+
   catalog:
-    build: catalog
+    build: ./catalog
     mem_limit: 256m
     ports:
-      - "8081:8080"
+      - "8086:8086"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/ecommerce
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
+    networks:
+      - ecommerce-networks
     depends_on:
+      - eureka-server
       - postgres-db
 
   price:
     build: price
     mem_limit: 256m
+    ports:
+      - "8084:8084"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerceEs
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=price_schema
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
     depends_on:
+      - eureka-server
       - postgres-db
+    networks:
+      - ecommerce-networks
+    
 
   inventory:
     build: inventory
     mem_limit: 256m
+    ports:
+      - "8085:8085"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerceEs
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=inventory_schema
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/ # Alterado aqui
     depends_on:
       - postgres-db
- 
+      - eureka-server
+    networks:
+      - ecommerce-networks
+
   message:
-     image: "rabbitmq:3-management"
-     ports: 
-       - "5672:5672"
-       - "15672:15672"
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - ecommerce-networks
 
 volumes:
   pg-data:
-    driver: local
-  keycloak-pg-data:
     driver: local
 
 networks:
