@@ -1,24 +1,74 @@
-spring.application.name: inventory
-server.port: 8085
+server:
+  port: 8085
 
 spring:
+  application:
+    name: inventory
   datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/topicos
-    username: postgres
-    password: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres-db:5432/eCommerce
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
+    properties:
+      hibernate:
+        default_schema: inventory_schema
     hibernate:
       ddl-auto: update
     show-sql: true
     database: postgresql
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    hostname: inventory
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/ # Corrigido para remover o /eureka/
+    register-with-eureka: true
+    fetch-registry: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: ALWAYS
+
+spring.cloud.function.definition: consumeMessage
+
+spring.cloud.stream:
+  defaultBinder: rabbit
+  default.contentType: application/json
+  bindings.consumeMessage-in-0:
+    destination: inventory
+    group: inventoriesGroup
+
+spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
+  maxAttempts: 3
+  backOffInitialInterval: 500
+  backOffMaxInterval: 1000
+  backOffMultiplier: 2.0
+
+spring.cloud.stream.rabbit.bindings.consumeMessage-in-0.consumer:
+  autoBindDlq: true
+  republishToDlq: true
   
+  
+spring.rabbitmq:
+  host: ${MESSAGE_HOST:localhost}
+  port: 5672
+  username: guest
+  password: guest
+
 ---
-spring:
-  config:
-    activate:
-      on-profile: docker
-  datasource:
-    url: jdbc:postgresql://postgres-db:5432/ecommerce
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+spring.config.activate.on-profile: docker
+
+spring.rabbitmq:
+  host: message
