@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Configuration;
 
 import ufape.es.price.facade.Facade;
 import ufape.es.price.model.Price;
+import ufape.es.core.event.Event;
+
 
 import java.math.BigDecimal;
 import java.util.function.Consumer;

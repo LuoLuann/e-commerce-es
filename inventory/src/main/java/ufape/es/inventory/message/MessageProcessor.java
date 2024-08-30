@@ -4,7 +4,7 @@ package ufape.es.inventory.message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
+import ufape.es.core.event.Event;
 import ufape.es.inventory.facade.Facade;
 import ufape.es.inventory.model.Inventory;
 import ufape.es.inventory.repository.InventoryRepository;

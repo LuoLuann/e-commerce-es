@@ -17,10 +17,13 @@ import jakarta.validation.Valid;
 import ufape.es.catalog.controller.request.ProductRequest;
 import ufape.es.catalog.controller.response.ProductResponse;
 import ufape.es.catalog.facade.Catalog;
-import ufape.es.catalog.message.Event;
-import ufape.es.catalog.message.Event.Type;
+import ufape.es.core.event.Event;
+import ufape.es.core.event.Event.Type;
+import ufape.es.core.event.Publisher;
 
-import ufape.es.catalog.message.Publisher;
+
+
+
 import ufape.es.catalog.model.Product;
 
 @RestController
