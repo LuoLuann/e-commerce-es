@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8083
 
 spring:
   application:
@@ -17,10 +17,6 @@ spring:
       ddl-auto: update
     show-sql: true
     database: postgresql
-
-  config:
-    activate:
-      on-profile: docker
 
 eureka:
   client:
@@ -50,8 +46,7 @@ spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
 spring.cloud.stream.rabbit.bindings.consumeMessage-in-0.consumer:
   autoBindDlq: true
   republishToDlq: true
-  
-  
+
 spring.rabbitmq:
   host: ${MESSAGE_HOST:localhost}
   port: 5672
@@ -62,13 +57,30 @@ spring.rabbitmq:
 
 spring.config.activate.on-profile: docker
 
-spring.rabbitmq:
-  host: message
-
 server:
   port: 8080
+
+spring:
+  application:
+    name: inventory
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres-db:5432/eCommerce
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        default_schema: inventory_schema
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://discovery:8761/eureka/
+
+spring.rabbitmq:
+  host: message

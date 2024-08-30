@@ -1,5 +1,5 @@
 server:
-  port: 8084
+  port: 8082
 
 spring:
   application:
@@ -18,19 +18,10 @@ spring:
     show-sql: true
     database: postgresql
 
-  config:
-    activate:
-      on-profile: docker
-
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka
-    initialInstanceInfoReplicationIntervalSeconds: 5
-    registryFetchIntervalSeconds: 5
-  instance:
-    leaseRenewalIntervalInSeconds: 5
-    leaseExpirationDurationInSeconds: 5
+      defaultZone: http://discovery:8761/eureka/
 
 app:
   catalog-service:
@@ -54,8 +45,7 @@ spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
 spring.cloud.stream.rabbit.bindings.consumeMessage-in-0.consumer:
   autoBindDlq: true
   republishToDlq: true
-  
-  
+
 spring.rabbitmq:
   host: ${MESSAGE_HOST:localhost}
   port: 5672
@@ -65,20 +55,25 @@ spring.rabbitmq:
 ---
 spring.config.activate.on-profile: docker
 
-spring.rabbitmq:
-  host: message
-
-spring:
-  config:
-    activate:
-      on-profile: docker
-  datasource:
-    url: jdbc:postgresql://postgres-price:5432/price
-  application:
-    name: price
-
 server:
   port: 8080
+
+spring:
+  application:
+    name: price
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres-db:5432/eCommerce
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    properties:
+      hibernate:
+        default_schema: price_schema
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database: postgresql
 
 eureka:
   client:
@@ -88,3 +83,6 @@ eureka:
 app:
   catalog-service:
     host: http://catalog:8080/catalog
+
+spring.rabbitmq:
+  host: message

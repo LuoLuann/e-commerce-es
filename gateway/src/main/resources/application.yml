@@ -30,21 +30,18 @@ spring:
           predicates:
             - Path=/price/**
 
-logging:
-  level:
-    root: INFO
-    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
-    org.springframework.cloud.gateway: TRACE
-
   security:
     oauth2:
       resourceserver:
         jwt:
           issuer-uri: http://host.docker.internal:8090/realms/tees
 
-  config:
-    activate:
-      on-profile: docker
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
+    org.springframework.cloud.gateway: TRACE
+
 eureka:
   client:
     service-url:
@@ -66,9 +63,10 @@ spring:
       on-profile: docker
 
 app:
-  eureka-server: discovery
+  eureka-server: eureka-server
 
 eureka:
   client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
