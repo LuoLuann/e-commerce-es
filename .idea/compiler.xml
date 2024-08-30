@@ -16,10 +16,10 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="catalog" options="-parameters" />
-      <module name="demo" options="-parameters" />
+      <module name="catalog" options="" />
+      <module name="demo" options="" />
       <module name="demo (1) (ufape.es.discovery)" options="-parameters" />
-      <module name="price" options="-parameters" />
+      <module name="price" options="" />
     </option>
   </component>
 </project>
