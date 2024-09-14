@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
+import ufape.es.core.model.Address;
 
 @Entity @Data
 public class Warehouse {
@@ -12,7 +13,7 @@ public class Warehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String location;
+    private Address address;
     private String description;
     private Long capacity;
 }
