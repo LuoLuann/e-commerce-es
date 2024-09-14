@@ -1,4 +1,4 @@
-package ufape.es.core.model;
+package ufape.es.inventory.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

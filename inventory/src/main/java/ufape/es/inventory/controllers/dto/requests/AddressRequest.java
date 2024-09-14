@@ -1,11 +1,11 @@
-package ufape.es.core.dto.request;
+package ufape.es.inventory.controllers.dto.requests;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import ufape.es.core.config.SpringApplicationContext;
-import ufape.es.core.model.Address;
+import ufape.es.inventory.config.SpringApplicationContext;
+import ufape.es.inventory.model.Address;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class AddressRequest {

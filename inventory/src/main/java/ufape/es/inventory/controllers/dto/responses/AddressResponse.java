@@ -1,11 +1,11 @@
-package ufape.es.core.dto.response;
+package ufape.es.inventory.controllers.dto.responses;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
-import ufape.es.core.config.SpringApplicationContext;
-import ufape.es.core.model.Address;
+import ufape.es.inventory.config.SpringApplicationContext;
+import ufape.es.inventory.model.Address;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class AddressResponse {
@@ -20,8 +20,8 @@ public class AddressResponse {
     private String neighborhood;
     private String reference;
 
-    public AddressResponse(Address obj){
+    public AddressResponse(Address address){
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
-        modelMapper.map(obj, this);
+        modelMapper.map(address, this);
     }
 }
