@@ -22,10 +22,10 @@ public class MessageProcessor {
 		return e -> {
 			switch(e.getType()) {
 				case CREATE:
-					Inventory iv = new Inventory();
-					iv.setProductId(e.getData());
-					iv.setQuantity(0);
-					facade.createInventory(null, iv);
+					Inventory inventory = new Inventory();
+					inventory.setProductId(e.getData());
+					inventory.setQuantity(0L);
+					facade.createInventory(inventory);
 					break;
 				default:
 					System.out.println("Ops ...");

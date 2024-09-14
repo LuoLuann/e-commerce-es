@@ -2,7 +2,6 @@ package ufape.es.inventory.controllers;
 
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ufape.es.inventory.controllers.dto.requests.SectionRequest;
@@ -23,24 +22,21 @@ public class SectionController {
 
     @PostMapping("/section")
     public Section createSection(@Valid @RequestBody SectionRequest newObj) {
-        return facade.createSection(newObj.getWarehouseId(), newObj.convertToEntity());
+        return facade.createSection(newObj.convertToEntity());
     }
 
     @PutMapping("/section/{id}")
     public SectionResponse updateSection(@PathVariable Long id, @Valid @RequestBody SectionRequest obj) {
         Section oldObject = facade.getSection(id);
 
-        TypeMap<SectionRequest, Section> typeMapper = modelMapper
-                .typeMap(SectionRequest.class, Section.class)
-                .addMappings(mapper -> mapper.skip(Section::setId));
-        typeMapper.map(obj, oldObject);
+        modelMapper.map(obj, oldObject);
 
-        return new SectionResponse(facade.updateSection(id, oldObject));
+        return new SectionResponse(facade.updateSection(oldObject));
     }
 
     @GetMapping("/section")
     public List<SectionResponse> getAllSections() {
-        return facade.getSections()
+        return facade.getAllSections()
                 .stream()
                 .map(SectionResponse::new)
                 .toList();

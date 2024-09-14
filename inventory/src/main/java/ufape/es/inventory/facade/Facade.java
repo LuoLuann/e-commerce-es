@@ -3,16 +3,12 @@ package ufape.es.inventory.facade;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import ufape.es.inventory.model.Warehouse;
-import ufape.es.inventory.model.Section;
-import ufape.es.inventory.model.Inventory;
-import ufape.es.inventory.service.IInventoryService;
-import ufape.es.inventory.service.ISectionService;
-import ufape.es.inventory.service.IWarehouseService;
+import ufape.es.inventory.model.*;
+import ufape.es.inventory.service.*;
 
-@Component
+@Service
 public class Facade {
 
     @Autowired
@@ -22,7 +18,7 @@ public class Facade {
     private ISectionService sectionService;
 
     @Autowired
-    private IInventoryService inventoryService;
+    private InventoryServiceInterface inventoryService;
 
     // Methods to Warehouse
     public Warehouse createWarehouse(Warehouse warehouse) {
@@ -33,12 +29,12 @@ public class Facade {
         return warehouseService.getWarehouse(id);
     }
 
-    public List<Warehouse> getWarehouses() {
-        return warehouseService.getWarehouses();
+    public List<Warehouse> getAllWarehouses() {
+        return warehouseService.getAllWarehouses();
     }
 
-    public Warehouse updateWarehouse(Long id, Warehouse warehouse) {
-        return warehouseService.updateWarehouse(id, warehouse);
+    public Warehouse updateWarehouse(Warehouse warehouse) {
+        return warehouseService.updateWarehouse(warehouse);
     }
 
     public void deleteWarehouse(Long id) {
@@ -46,20 +42,20 @@ public class Facade {
     }
 
     // Meyhods to Section
-    public Section createSection(Long warehouseId, Section section) {
-        return sectionService.createSection(warehouseId, section);
+    public Section createSection(Section section) {
+        return sectionService.createSection(section);
     }
 
     public Section getSection(Long id) {
         return sectionService.getSection(id);
     }
 
-    public List<Section> getSections() {
-        return sectionService.getSections();
+    public List<Section> getAllSections() {
+        return sectionService.getAllSections();
     }
 
-    public Section updateSection(Long id, Section section) {
-        return sectionService.updateSection(id, section);
+    public Section updateSection(Section section) {
+        return sectionService.updateSection(section);
     }
 
     public void deleteSection(Long id) {
@@ -67,20 +63,20 @@ public class Facade {
     }
 
     // Methods for Inventory
-    public Inventory createInventory(Long sectionId, Inventory inventory) {
-        return inventoryService.createInventory(sectionId, inventory);
+    public Inventory createInventory(Inventory inventory) {
+        return inventoryService.createInventory(inventory);
     }
 
     public Inventory getInventory(Long id) {
         return inventoryService.getInventory(id);
     }
 
-    public List<Inventory> getInventories() {
-        return inventoryService.getInventories();
+    public List<Inventory> getAllInventories() {
+        return inventoryService.getAllInventories();
     }
 
-    public Inventory updateInventory(Long id, Inventory inventory) {
-        return inventoryService.updateInventory(id, inventory);
+    public Inventory updateInventory(Inventory inventory) {
+        return inventoryService.updateInventory(inventory);
     }
 
     public void deleteInventory(Long id) {

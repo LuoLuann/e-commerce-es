@@ -16,9 +16,9 @@ public class InventoryResponse {
     private Long warehouseId;
     private Long sectionId;
 
-    public InventoryResponse(Inventory inventory) {
+    public InventoryResponse(Inventory obj) {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
-        modelMapper.map(inventory, this);
+        modelMapper.map(obj, this);
     }
 }
 

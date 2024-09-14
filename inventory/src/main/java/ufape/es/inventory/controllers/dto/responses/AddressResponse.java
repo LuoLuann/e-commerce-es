@@ -20,8 +20,8 @@ public class AddressResponse {
     private String neighborhood;
     private String reference;
 
-    public AddressResponse(Address address){
+    public AddressResponse(Address obj){
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
-        modelMapper.map(address, this);
+        modelMapper.map(obj, this);
     }
 }

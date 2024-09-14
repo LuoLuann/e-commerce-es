@@ -12,9 +12,9 @@ public class SectionResponse {
     private String name;
     private Long warehouseId;
 
-    public SectionResponse(Section section) {
+    public SectionResponse(Section obj) {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
-        modelMapper.map(section, this);
+        modelMapper.map(obj, this);
     }
 }
 

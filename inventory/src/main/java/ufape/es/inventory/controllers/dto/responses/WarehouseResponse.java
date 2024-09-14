@@ -10,13 +10,13 @@ public class WarehouseResponse {
 
     private Long id;
     private String name;
-    private String location;
+    private AddressResponse address;
     private String description;
     private Long capacity;
 
-    public WarehouseResponse(Warehouse warehouse) {
+    public WarehouseResponse(Warehouse obj) {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
-        modelMapper.map(warehouse, this);
+        modelMapper.map(obj, this);
     }
 }
 
