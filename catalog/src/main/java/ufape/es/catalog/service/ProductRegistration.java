@@ -1,13 +1,13 @@
-package ufape.es.catalog.registration;
+package ufape.es.catalog.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ufape.es.catalog.model.Product;
 import ufape.es.catalog.repository.ProductRepository;
+import ufape.es.core.exception.*;
 
 
 @Service

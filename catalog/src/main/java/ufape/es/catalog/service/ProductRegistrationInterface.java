@@ -1,4 +1,4 @@
-package ufape.es.catalog.registration;
+package ufape.es.catalog.service;
 
 import java.util.List;
 import java.util.Optional;

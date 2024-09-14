@@ -1,4 +1,4 @@
-package ufape.es.catalog.registration;
+package ufape.es.catalog.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import ufape.es.catalog.model.Category;
 import ufape.es.catalog.repository.CategoryRepository;
+import ufape.es.core.exception.*;
 
 @Service
 public class CategoryRegistration implements CategoryRegistrationInterface {

@@ -1,4 +1,4 @@
-package ufape.es.price.config;
+package ufape.es.catalog.config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
