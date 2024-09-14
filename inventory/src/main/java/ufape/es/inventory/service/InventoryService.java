@@ -7,10 +7,9 @@ import ufape.es.inventory.model.Inventory;
 import ufape.es.inventory.model.Section;
 import ufape.es.inventory.repository.InventoryRepository;
 import ufape.es.inventory.repository.SectionRepository;
-import ufape.es.inventory.service.interfaces.IInventory;
 
 @Service
-public class InventoryService implements IInventory {
+public class InventoryService implements InventoryServiceInterface {
 
     @Autowired
     private InventoryRepository inventoryRepository;

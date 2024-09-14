@@ -7,10 +7,9 @@ import org.springframework.stereotype.Service;
 
 import ufape.es.inventory.model.Section;
 import ufape.es.inventory.repository.SectionRepository;
-import ufape.es.inventory.service.interfaces.ISection;
 
 @Service
-public class SectionService implements ISection {
+public class SectionService implements ISectionService {
 
     @Autowired
     private SectionRepository sectionRepository;

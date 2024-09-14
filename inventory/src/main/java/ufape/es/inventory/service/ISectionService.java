@@ -1,10 +1,10 @@
-package ufape.es.inventory.service.interfaces;
+package ufape.es.inventory.service;
 
 import java.util.List;
 
 import ufape.es.inventory.model.Section;
 
-public interface ISection {
+public interface ISectionService {
     Section createSection(Long warehouseId, Section section);
     Section getSection(Long id);
     List<Section> getSections();

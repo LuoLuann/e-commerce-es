@@ -1,10 +1,10 @@
-package ufape.es.inventory.service.interfaces;
+package ufape.es.inventory.service;
 
 import java.util.List;
 
 import ufape.es.inventory.model.Inventory;
 
-public interface IInventory {
+public interface InventoryServiceInterface {
     Inventory createInventory(Long sectionId, Inventory inventory);
     Inventory getInventory(Long id);
     List<Inventory> getInventories();

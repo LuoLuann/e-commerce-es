@@ -1,13 +1,13 @@
-package ufape.es.inventory.service.interfaces;
+package ufape.es.inventory.service;
 
 import java.util.List;
 
 import ufape.es.inventory.model.Warehouse;
 
-public interface IWarehouse {
+public interface IWarehouseService {
     Warehouse createWarehouse(Warehouse warehouse);
     Warehouse getWarehouse(Long id);
     List<Warehouse> getWarehouses();
-    Warehouse updateWarehouse(Long id, Warehouse warehouse);
+    Warehouse updateWarehouse(Warehouse warehouse);
     void deleteWarehouse(Long id);
 }

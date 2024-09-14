@@ -8,19 +8,21 @@ import org.springframework.stereotype.Component;
 import ufape.es.inventory.model.Warehouse;
 import ufape.es.inventory.model.Section;
 import ufape.es.inventory.model.Inventory;
-import ufape.es.inventory.service.interfaces.*;
+import ufape.es.inventory.service.IInventoryService;
+import ufape.es.inventory.service.ISectionService;
+import ufape.es.inventory.service.IWarehouseService;
 
 @Component
 public class Facade {
 
     @Autowired
-    private IWarehouse warehouseService;
+    private IWarehouseService warehouseService;
 
     @Autowired
-    private ISection sectionService;
+    private ISectionService sectionService;
 
     @Autowired
-    private IInventory inventoryService;
+    private IInventoryService inventoryService;
 
     // Methods to Warehouse
     public Warehouse createWarehouse(Warehouse warehouse) {
