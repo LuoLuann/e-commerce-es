@@ -1,29 +1,6 @@
 version: '2.1'
 
 services:
-  eureka-server:
-    build: discovery
-    mem_limit: 512m
-    ports:
-      - "8761:8761"
-    expose:
-      - "8761"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    networks:
-      - ecommerce-networks
-
-  gateway:
-    build: gateway
-    mem_limit: 512m
-    ports:
-      - "8080:8080"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      - eureka-server
-    networks:
-      - ecommerce-networks
 
   postgres-db:
     image: postgres:16.0
@@ -65,7 +42,7 @@ services:
     networks:
       - ecommerce-networks
     depends_on:
-      - eureka-server
+   
       - postgres-db
 
   price:
@@ -78,7 +55,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=price_schema
     depends_on:
-      - eureka-server
+ 
       - postgres-db
     networks:
       - ecommerce-networks
@@ -93,7 +70,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=inventory_schema
     depends_on:
-      - eureka-server
+
       - postgres-db
     networks:
       - ecommerce-networks
@@ -106,32 +83,6 @@ services:
     networks:
       - ecommerce-networks
 
-  keycloak:
-    image: quay.io/keycloak/keycloak:25.0.4
-    environment:
-      - DB_VENDOR=h2
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KEYCLOAK_IMPORT=/opt/keycloak/realm-export.json
-    volumes:
-      - ./auth/realm-export.json:/opt/keycloak/realm-export.json
-    ports:
-      - "8090:8080"
-    command: ["start-dev"]
-    networks:
-      - ecommerce-networks
-
-  auth:
-    build: auth
-    mem_limit: 512m
-    ports:
-      - "9090:9090"
-    environment:
-      - SPRING_PROFILES_ACTIVE=docker
-    depends_on:
-      - keycloak
-    networks:
-      - ecommerce-networks
 
 volumes:
   pg-data:

@@ -4,7 +4,7 @@ import java.util.List;
 
 import ufape.es.catalog.model.Category;
 
-public interface CategoryRegistrationInterface {
+public interface CategoryServiceInterface {
 
     Category saveCategory(Category entity);
 

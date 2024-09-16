@@ -17,6 +17,8 @@ public class ProductRequest {
     @NotNull(message = "Category ID cannot be null when creating an inventory.")
     private Long categoryId;
 
+    private long parentCategoryId;
+
     public Product convertToEntity() {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
         Product product = modelMapper.map(this, Product.class);

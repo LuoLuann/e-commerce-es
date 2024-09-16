@@ -11,7 +11,7 @@ import ufape.es.core.exception.*;
 
 
 @Service
-public class ProductRegistration implements ProductRegistrationInterface {
+public class ProductService implements ProductServiceInterface {
     @Autowired
     private ProductRepository productRepository;
 

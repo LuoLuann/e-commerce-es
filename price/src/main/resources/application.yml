@@ -18,14 +18,6 @@ spring:
     show-sql: true
     database: postgresql
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
-
-app:
-  catalog-service:
-    host: http://localhost:8081/catalog
 
 spring.cloud.function.definition: consumeMessage
 
@@ -75,14 +67,8 @@ spring:
     show-sql: true
     database: postgresql
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
 
-app:
-  catalog-service:
-    host: http://catalog:8080/catalog
+
 
 spring.rabbitmq:
   host: message

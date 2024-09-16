@@ -11,7 +11,7 @@ import ufape.es.catalog.repository.CategoryRepository;
 import ufape.es.core.exception.*;
 
 @Service
-public class CategoryRegistration implements CategoryRegistrationInterface {
+public class CategoryService implements CategoryServiceInterface {
     @Autowired
     private CategoryRepository categoryRepository;
 

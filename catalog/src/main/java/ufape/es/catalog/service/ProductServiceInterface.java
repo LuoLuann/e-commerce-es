@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import ufape.es.catalog.model.Product;
 
-public interface ProductRegistrationInterface {
+public interface ProductServiceInterface {
 
     List<Product> listProducts(String description);
 
