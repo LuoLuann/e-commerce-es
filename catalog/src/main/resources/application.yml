@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   application:
@@ -22,18 +22,9 @@ spring:
 spring.cloud.stream:
   defaultBinder: rabbit
   default.contentType: application/json
-  bindings.price-out-0:
-    destination: price
+  bindings.inventory-out-0:
+    destination: inventory
 
-spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
-  maxAttempts: 3
-  backOffInitialInterval: 500
-  backOffMaxInterval: 1000
-  backOffMultiplier: 2.0
-
-spring.cloud.stream.rabbit.bindings.consumeMessage-in-0.consumer:
-  autoBindDlq: true
-  republishToDlq: true
 
 spring.rabbitmq:
   host: ${MESSAGE_HOST:localhost}

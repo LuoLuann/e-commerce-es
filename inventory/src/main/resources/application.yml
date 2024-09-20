@@ -1,6 +1,5 @@
 server:
-  port: 8083
-
+  port: 8082
 spring:
   application:
     name: inventory
@@ -26,7 +25,7 @@ spring.cloud.stream:
   default.contentType: application/json
   bindings.consumeMessage-in-0:
     destination: inventory
-    group: inventoriesGroup
+   
 
 spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
   maxAttempts: 3
@@ -49,7 +48,7 @@ spring.rabbitmq:
 spring.config.activate.on-profile: docker
 
 server:
-  port: 8080
+  port: 8082
 
 spring:
   application:

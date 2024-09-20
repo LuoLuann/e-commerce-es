@@ -24,22 +24,24 @@ import ufape.es.core.event.Publisher;
 
 
 
+
+
 import ufape.es.catalog.model.Product;
 
 @RestController
 public class ProductController {
-
     @Autowired
     private Catalog facade;
     @Autowired
-	private Publisher publisher;
+    private Publisher publisher;
+
 
     @PostMapping("/product")
     Product createProduct (@Valid @RequestBody ProductRequest newObj) {
          Product product = facade.saveProduct(newObj.convertToEntity());
          // é pra ser Long e ProductDTO, ai como n tem, fds por enquanto
-         Event<Long, Long> event = new Event<Long, Long>(Type.CREATE, product.getId(), product.getId());
-		 publisher.sendMessage("price-out-0", event);
+         Event<Long,Integer> event = new Event<Long,Integer>(Type.CREATE, product.getId(), 2);
+		 publisher.sendMessage("inventory-out-0", event);
          return product;
     }
 

@@ -1,4 +1,4 @@
-version: '2.1'
+
 
 services:
 
@@ -16,20 +16,11 @@ services:
       - ecommerce-networks
     volumes:
       - pg-data:/var/lib/postgresql/data
-    user: "postgres"
-    command: >
-      bash -c "
-        postgres -c 'shared_buffers=256MB' &
-        sleep 5 &&
-        psql -U postgres -d eCommerce -c 'CREATE SCHEMA IF NOT EXISTS catalog_schema;' &&
-        psql -U postgres -d eCommerce -c 'CREATE SCHEMA IF NOT EXISTS price_schema;' &&
-        psql -U postgres -d eCommerce -c 'CREATE SCHEMA IF NOT EXISTS inventory_schema;' &&
-        wait
-      "
+      - ./initdb:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
-      retries: 10  # Aumentado para garantir que o PostgreSQL esteja pronto
+      retries: 10
 
   catalog:
     build: ./catalog
@@ -39,6 +30,8 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/eCommerce
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
+    ports:
+    - "8080:8080"
     networks:
       - ecommerce-networks
     depends_on:
@@ -54,8 +47,9 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=price_schema
+    ports:
+    - "8081:8081"
     depends_on:
- 
       - postgres-db
     networks:
       - ecommerce-networks
@@ -69,8 +63,9 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=inventory_schema
+    ports:
+    - "8082:8082"
     depends_on:
-
       - postgres-db
     networks:
       - ecommerce-networks
