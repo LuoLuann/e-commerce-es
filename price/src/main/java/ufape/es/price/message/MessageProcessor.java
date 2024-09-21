@@ -5,9 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import ufape.es.core.event.Event;
 import ufape.es.price.facade.Facade;
 import ufape.es.price.model.Price;
-import ufape.es.core.event.Event;
+
 
 
 import java.math.BigDecimal;
@@ -20,12 +21,12 @@ public class MessageProcessor {
 	private Facade facade;
 	
 	@Bean
-	public Consumer<Event<Long,Long>> consumeMessage() { 
+	public Consumer<Event<Long, Integer>> consumeMessage() { 
 		return e -> {
 			switch(e.getType()) {
 				case CREATE:
 					Price price = new Price();
-					price.setProductId(e.getData());
+					price.setProductId(e.getKey());
 					price.setBasePrice(BigDecimal.valueOf(0));
 					facade.createPrice(price);
 					break;

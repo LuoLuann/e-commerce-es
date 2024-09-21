@@ -23,24 +23,21 @@ public class InventoryController {
 
     @PostMapping("/inventory")
     public Inventory createInventory(@Valid @RequestBody InventoryRequest newObj) {
-        return facade.createInventory(newObj.getSectionId(), newObj.convertToEntity());
+        return facade.createInventory(newObj.convertToEntity());
     }
 
     @PutMapping("/inventory/{id}")
     public InventoryResponse updateInventory(@PathVariable Long id, @Valid @RequestBody InventoryRequest obj) {
         Inventory oldObject = facade.getInventory(id);
 
-        TypeMap<InventoryRequest, Inventory> typeMapper = modelMapper
-                .typeMap(InventoryRequest.class, Inventory.class)
-                .addMappings(mapper -> mapper.skip(Inventory::setId));
-        typeMapper.map(obj, oldObject);
+        modelMapper.map(obj, oldObject);
 
-        return new InventoryResponse(facade.updateInventory(id, oldObject));
+        return new InventoryResponse(facade.updateInventory(oldObject));
     }
 
     @GetMapping("/inventory")
     public List<InventoryResponse> getAllInventories() {
-        return facade.getInventories()
+        return facade.getAllInventories()
                 .stream()
                 .map(InventoryResponse::new)
                 .toList();

@@ -10,10 +10,7 @@
     <module>inventory</module>
     <module>catalog</module>
     <module>price</module>
-    <module>discovery</module>
     <module>core</module>
-    <module>gateway</module>
-    <module>auth</module>
   </modules>
 
   <properties>

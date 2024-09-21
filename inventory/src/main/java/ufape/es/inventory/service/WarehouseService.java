@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 
 import ufape.es.inventory.model.Warehouse;
 import ufape.es.inventory.repository.WarehouseRepository;
-import ufape.es.inventory.service.interfaces.IWarehouse;
+import ufape.es.inventory.service.exception.ObjectNotFoundException;
 
 @Service
-public class WarehouseService implements IWarehouse {
-	
+public class WarehouseService implements IWarehouseService {
 	@Autowired
     private WarehouseRepository warehouseRepository;
 
@@ -22,25 +21,17 @@ public class WarehouseService implements IWarehouse {
 
     @Override
     public Warehouse getWarehouse(Long id) {
-        return warehouseRepository.findById(id).orElse(null);
+        return warehouseRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Warehouse not found (id: " + id + ")"));
     }
 
     @Override
-    public List<Warehouse> getWarehouses() {
+    public List<Warehouse> getAllWarehouses() {
         return warehouseRepository.findAll();
     }
 
     @Override
-    public Warehouse updateWarehouse(Long id, Warehouse warehouse) {
-        Warehouse warehouseToUpdate = warehouseRepository.findById(id).orElse(null);
-        if (warehouseToUpdate == null) {
-            return null;
-        }
-        warehouseToUpdate.setName(warehouse.getName());
-        warehouseToUpdate.setLocation(warehouse.getLocation());
-        warehouseToUpdate.setDescription(warehouse.getDescription());
-        warehouseToUpdate.setCapacity(warehouse.getCapacity());
-        return warehouseRepository.save(warehouseToUpdate);
+    public Warehouse updateWarehouse(Warehouse warehouse) {
+        return warehouseRepository.save(warehouse);
     }
 
     @Override

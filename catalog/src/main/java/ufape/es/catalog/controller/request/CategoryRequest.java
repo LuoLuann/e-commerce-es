@@ -15,7 +15,7 @@ public class CategoryRequest {
     private String description;
     private String icon;
 
-    // private long parentCategory;
+    private long parentCategoryId;
 
     public Category convertToEntity() {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");

@@ -1,4 +1,4 @@
-package ufape.es.core.event;
+package ufape.es.catalog.message;
 import java.util.Date;
 
 import lombok.Data;

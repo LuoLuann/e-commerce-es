@@ -9,11 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class Publisher {
 
-    @Autowired
-    private StreamBridge streamBridge;
+	@Autowired
+	private StreamBridge streamBridge;
 
-
-    public void sendMessage(String bindingName, Event event) {
+	public void sendMessage(String bindingName, Event event) {
 		Message message = MessageBuilder.withPayload(event)
 				.build();
 			streamBridge.send(bindingName, message);

@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8081
 
 spring:
   application:
@@ -18,14 +18,6 @@ spring:
     show-sql: true
     database: postgresql
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
-
-app:
-  catalog-service:
-    host: http://localhost:8081/catalog
 
 spring.cloud.function.definition: consumeMessage
 
@@ -34,7 +26,7 @@ spring.cloud.stream:
   default.contentType: application/json
   bindings.consumeMessage-in-0:
     destination: price
-    group: pricesGroup
+
 
 spring.cloud.stream.bindings.consumeMessage-in-0.consumer:
   maxAttempts: 3
@@ -56,7 +48,7 @@ spring.rabbitmq:
 spring.config.activate.on-profile: docker
 
 server:
-  port: 8080
+  port: 8081
 
 spring:
   application:
@@ -74,15 +66,11 @@ spring:
       ddl-auto: update
     show-sql: true
     database: postgresql
+  config:
+    activate:
+      on-profile: docker
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://discovery:8761/eureka/
 
-app:
-  catalog-service:
-    host: http://catalog:8080/catalog
 
 spring.rabbitmq:
   host: message

@@ -2,7 +2,6 @@ package ufape.es.inventory.controllers;
 
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,17 +30,14 @@ public class WarehouseController {
     public WarehouseResponse updateWarehouse(@PathVariable Long id, @Valid @RequestBody WarehouseRequest obj) {
         Warehouse oldObject = facade.getWarehouse(id);
 
-        TypeMap<WarehouseRequest, Warehouse> typeMapper = modelMapper
-                .typeMap(WarehouseRequest.class, Warehouse.class)
-                .addMappings(mapper -> mapper.skip(Warehouse::setId));
-        typeMapper.map(obj, oldObject);
+        modelMapper.map(obj, oldObject);
 
-        return new WarehouseResponse(facade.updateWarehouse(id, oldObject));
+        return new WarehouseResponse(facade.updateWarehouse(oldObject));
     }
 
     @GetMapping("/warehouse")
     public List<WarehouseResponse> getAllWarehouses() {
-        return facade.getWarehouses()
+        return facade.getAllWarehouses()
                 .stream()
                 .map(WarehouseResponse::new)
                 .toList();
