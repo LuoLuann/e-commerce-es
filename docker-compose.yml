@@ -1,6 +1,29 @@
 
 
 services:
+  eureka-server:
+    build: discovery
+    mem_limit: 512m
+    ports:
+      - "8761:8761"
+    expose:
+      - "8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - ecommerce-networks
+
+  gateway:
+    build: gateway
+    mem_limit: 512m
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - eureka-server
+    networks:
+      - ecommerce-networks
 
   postgres-db:
     image: postgres:16.0
@@ -35,7 +58,7 @@ services:
     networks:
       - ecommerce-networks
     depends_on:
-   
+      - eureka-server
       - postgres-db
 
   price:
@@ -48,8 +71,9 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA=price_schema
     ports:
-    - "8081:8081"
+      - "8081:8081"
     depends_on:
+      - eureka-server
       - postgres-db
     networks:
       - ecommerce-networks
@@ -66,6 +90,7 @@ services:
     ports:
     - "8082:8082"
     depends_on:
+      - eureka-server
       - postgres-db
     networks:
       - ecommerce-networks
