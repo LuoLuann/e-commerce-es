@@ -1,3 +1,6 @@
+server:
+  port: 8083
+
 spring:
   application:
     name: auth
@@ -19,6 +22,10 @@ spring:
           jwk-set-uri: http://localhost:8090/realms/tees/protocol/openid-connect/certs
 
 ---
+
+server:
+  port: 8083
+
 spring:
   config:
     activate:
@@ -27,4 +34,14 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://keycloak:8090/realms/tees/protocol/openid-connect/certs
+          jwk-set-uri: http://keycloak:8080/realms/tees/protocol/openid-connect/certs
+      client:
+        registration:
+          keycloak:
+            client-id: app_client
+            authorization-grant-type: authorization_code
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://keycloak:8080/realms/tees
+            user-name-attribute: preferred_username

@@ -114,7 +114,7 @@ services:
     build: auth
     mem_limit: 512m
     ports:
-      - "9090:9090"
+      - "8083:8083"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     depends_on:
