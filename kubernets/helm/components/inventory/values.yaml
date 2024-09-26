@@ -1,0 +1,25 @@
+fullnameOverride: inventory
+
+image:
+  name: inventory
+
+ports:
+  - containerPort: 8082
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-db:5432/eCommerce"
+  SPRING_DATASOURCE_USERNAME: "postgres"
+  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: "inventory_schema"
+
+service:
+  type: LoadBalancer
+  ports:
+    - port: 8082
+      targetPort: 8082
+      protocol: TCP
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true

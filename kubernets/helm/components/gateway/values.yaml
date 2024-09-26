@@ -1,0 +1,29 @@
+
+fullnameOverride: gateway
+
+image:
+  name: gateway
+
+ports:
+  - containerPort: 8083
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+
+livenessProbe_enabled: true
+livenessProbe:
+  httpGet:
+    scheme: HTTPS
+    port: 8083
+readinessProbe_enabled: true
+readinessProbe:
+  httpGet:
+    scheme: HTTPS
+    port: 8083
+
+service:
+  type: LoadBalancer
+  ports:
+    - port: 8083
+      targetPort: 8383
+      protocol: TCP

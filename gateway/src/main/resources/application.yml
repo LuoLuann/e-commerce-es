@@ -7,16 +7,6 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: eureka-web-start
-          uri: http://${app.eureka-server}:8761
-          predicates:
-            - Path=/eureka/web
-          filters:
-            - SetPath=/
-        - id: eureka-web-other
-          uri: http://${app.eureka-server}:8761
-          predicates:
-            - Path=/eureka/**
         - id: catalog
           uri: lb://catalog
           predicates:
@@ -42,31 +32,10 @@ logging:
     org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
     org.springframework.cloud.gateway: TRACE
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
-    initial-instance-info-replication-interval-seconds: 5
-    registry-fetch-interval-seconds: 5
-  instance:
-    lease-renewal-interval-in-seconds: 5
-    lease-expiration-duration-in-seconds: 5
-
-app:
-  eureka-server: localhost
-
 ---
 
 spring:
   config:
     activate:
       on-profile: docker
-
-app:
-  eureka-server: eureka-server
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-server:8761/eureka/
 
