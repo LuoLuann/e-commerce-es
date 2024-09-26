@@ -16,7 +16,7 @@ services:
       - ecommerce-networks
     volumes:
       - pg-data:/var/lib/postgresql/data
-      - ./initdb:/docker-entrypoint-initdb.d
+      - ./config/initdb:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 10s
@@ -69,30 +69,6 @@ services:
       - postgres-db
     networks:
       - ecommerce-networks
-
-  keycloak:
-    image: quay.io/keycloak/keycloak
-    ports:
-      - "8090:8080"
-    networks:
-      - ecommerce-networks
-    environment:
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
-      DB_VENDOR: POSTGRES
-      DB_ADDR: keycloak-db
-      DB_PORT: 5432
-      DB_DATABASE: keycloak
-      DB_USER: postgres
-      DB_SCHEMA: public
-      DB_PASSWORD: password
-    volumes:
-      - ./auth/realm-export.json:/opt/keycloak/realm-export.json
-      - ./keycloak-entrypoint.sh:/opt/keycloak/keycloak-entrypoint.sh
-    entrypoint: ["/opt/keycloak/keycloak-entrypoint.sh"]
-    depends_on:
-      - keycloak-db
-
   keycloak-db:
     image: postgres:16.0
     restart: always
@@ -110,6 +86,28 @@ services:
     volumes:
       - keycloak-pg-data:/var/lib/postgresql/data
 
+  keycloak:
+    build: ./config/keycloak-custom
+    command: ["start-dev", "--import-realm"] # Define o comando para importar o realm na inicialização
+    ports:
+      - "8090:8080"
+    networks:
+      - ecommerce-networks
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: keycloak-db
+      KC_DB_URL_PORT: 5432
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: password
+      KC_DB_DATABASE: keycloak
+      KC_IMPORT: /opt/keycloak/realm-export.json
+      KC_HOSTNAME: localhost # Ajuste conforme necessário
+    volumes:
+      - ./auth/realm-export.json:/opt/keycloak/realm-export.json
+    depends_on:
+      - keycloak-db
   auth:
     build: auth
     mem_limit: 512m

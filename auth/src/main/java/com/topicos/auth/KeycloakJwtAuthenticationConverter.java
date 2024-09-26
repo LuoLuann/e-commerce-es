@@ -34,7 +34,7 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
                 .concat(defaultGrantedAuthoritiesConverter.convert(jwt).stream(),
                         extractAuthorities(jwt).stream())
                 .collect(Collectors.toSet());
-        authorities.stream().forEach(System.out::println);
+        authorities.stream().forEach(System.out::println); // Para depuração
         return new JwtAuthenticationToken(jwt, authorities, jwt.getClaimAsString("preferred_username"));
     }
 
@@ -48,31 +48,34 @@ public class KeycloakJwtAuthenticationConverter implements Converter<Jwt, Abstra
     private Set<String> getRealmRoles(Jwt jwt) {
         Set<String> rolesWithPrefix = new HashSet<>();
         JsonNode json = objectMapper.convertValue(jwt.getClaim("realm_access"), JsonNode.class);
-        json.elements().forEachRemaining(
-                e -> e.elements().forEachRemaining(r -> rolesWithPrefix.add(createRole(r.asText()))));
+        if (json != null && json.has("roles")) {
+            json.get("roles").forEach(r -> rolesWithPrefix.add(createRole(r.asText())));
+        }
         return rolesWithPrefix;
     }
-
 
     private Set<String> getResourceRoles(Jwt jwt) {
         Set<String> rolesWithPrefix = new HashSet<>();
         Map<String, JsonNode> map = objectMapper.convertValue(jwt.getClaim("resource_access"), new TypeReference<Map<String, JsonNode>>(){});
-        for (Map.Entry<String, JsonNode> jsonNode : map.entrySet()) {
-            jsonNode
-                    .getValue()
-                    .elements()
-                    .forEachRemaining(e -> e
-                            .elements()
-                            .forEachRemaining(r -> rolesWithPrefix.add(createRole(jsonNode.getKey(), r.asText()))));
+        if (map != null) {
+            for (Map.Entry<String, JsonNode> jsonNode : map.entrySet()) {
+                String client = jsonNode.getKey();
+                JsonNode clientRoles = jsonNode.getValue().get("roles");
+                if (clientRoles != null) {
+                    clientRoles.forEach(r -> rolesWithPrefix.add(createRole(client, r.asText())));
+                }
+            }
         }
         return rolesWithPrefix;
     }
 
     private String createRole(String... values) {
-        StringBuilder role = new StringBuilder(""); //"ROLE"
-        for (String value : values) {
-            //role.append("_").append(value.toUpperCase());
-            role.append(value.toUpperCase());
+        StringBuilder role = new StringBuilder("ROLE_");
+        for (int i = 0; i < values.length; i++) {
+            role.append(values[i].toUpperCase());
+            if (i < values.length - 1) {
+                role.append("_");
+            }
         }
         return role.toString();
     }

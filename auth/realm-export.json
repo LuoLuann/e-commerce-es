@@ -1,12 +1,71 @@
 {
   "id": "05799eba-144f-4bd6-9b77-d180857de042",
   "realm": "tees",
+
+  "users": [
+    {
+      "id": "unique-user-id-1",
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "admin@gmail.com",
+      "firstName": "Usuário",
+      "lastName": "Um",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "admin"
+      ],
+      "clientRoles": {
+        "app_client": [
+          "manage-account"
+        ]
+      },
+      "requiredActions": [],
+      "attributes": {}
+    },
+    {
+      "id": "unique-user-id-2",
+      "username": "user",
+      "enabled": true,
+      "emailVerified": true,
+      "email": "user@gmail.com",
+      "firstName": "Usuário",
+      "lastName": "Dois",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "user",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "USER"
+      ],
+      "clientRoles": {
+        "app_client": [
+          "manage-account",
+          "manage-clients"
+        ]
+      },
+      "requiredActions": [
+    
+      ],
+      "attributes": {}
+    }
+  ],
+
   "notBefore": 0,
   "defaultSignatureAlgorithm": "RS256",
   "revokeRefreshToken": false,
   "refreshTokenMaxReuse": 0,
-  "accessTokenLifespan": 300,
-  "accessTokenLifespanForImplicitFlow": 900,
+  "accessTokenLifespan": 18000,
+  "accessTokenLifespanForImplicitFlow": 54000,
   "ssoSessionIdleTimeout": 1800,
   "ssoSessionMaxLifespan": 36000,
   "ssoSessionIdleTimeoutRememberMe": 0,
@@ -23,7 +82,7 @@
   "accessCodeLifespanLogin": 1800,
   "actionTokenGeneratedByAdminLifespan": 43200,
   "actionTokenGeneratedByUserLifespan": 300,
-  "oauth2DeviceCodeLifespan": 600,
+  "oauth2DeviceCodeLifespan": 864000,
   "oauth2DevicePollingInterval": 5,
   "enabled": true,
   "sslRequired": "external",
@@ -80,6 +139,15 @@
         "id": "743f4732-b418-42f5-b18b-7576672bbc3b",
         "name": "offline_access",
         "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "05799eba-144f-4bd6-9b77-d180857de042",
+        "attributes": {}
+      },
+      {
+        "id": "0eb9b2ee-4611-456a-86b7-4fb5b04749a2",
+        "name": "otario",
+        "description": "",
         "composite": false,
         "clientRole": false,
         "containerId": "05799eba-144f-4bd6-9b77-d180857de042",
@@ -628,6 +696,7 @@
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "1724291006",
         "backchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",
         "use.jwks.url": "false",
@@ -671,7 +740,9 @@
       "publicClient": true,
       "frontchannelLogout": false,
       "protocol": "openid-connect",
-      "attributes": {},
+      "attributes": {
+        "post.logout.redirect.uris": "+"
+      },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
@@ -723,6 +794,7 @@
         "oidc.ciba.grant.enabled": "false",
         "client.secret.creation.time": "1724332999",
         "backchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
         "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",
         "use.jwks.url": "false",
@@ -740,8 +812,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "client_id",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "client_id",
             "jsonType.label": "String"
@@ -755,8 +828,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientHost",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientHost",
             "jsonType.label": "String"
@@ -770,8 +844,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "clientAddress",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "clientAddress",
             "jsonType.label": "String"
@@ -813,7 +888,9 @@
       "publicClient": false,
       "frontchannelLogout": false,
       "protocol": "openid-connect",
-      "attributes": {},
+      "attributes": {
+        "post.logout.redirect.uris": "+"
+      },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
@@ -852,7 +929,9 @@
       "publicClient": false,
       "frontchannelLogout": false,
       "protocol": "openid-connect",
-      "attributes": {},
+      "attributes": {
+        "post.logout.redirect.uris": "+"
+      },
       "authenticationFlowBindingOverrides": {},
       "fullScopeAllowed": false,
       "nodeReRegistrationTimeout": 0,
@@ -1272,7 +1351,8 @@
           "config": {
             "id.token.claim": "true",
             "introspection.token.claim": "true",
-            "access.token.claim": "true"
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
           }
         }
       ]
@@ -1367,6 +1447,7 @@
           "config": {
             "introspection.token.claim": "true",
             "multivalued": "true",
+            "userinfo.token.claim": "true",
             "user.attribute": "foo",
             "id.token.claim": "true",
             "access.token.claim": "true",
@@ -1493,8 +1574,9 @@
           "consentRequired": false,
           "config": {
             "user.session.note": "AUTH_TIME",
-            "id.token.claim": "true",
             "introspection.token.claim": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "auth_time",
             "jsonType.label": "long"
@@ -1591,14 +1673,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "oidc-usermodel-attribute-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
+            "oidc-full-name-mapper",
             "oidc-usermodel-property-mapper",
             "saml-role-list-mapper",
-            "oidc-usermodel-attribute-mapper",
             "oidc-address-mapper",
             "saml-user-attribute-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "saml-user-property-mapper",
-            "oidc-full-name-mapper"
+            "saml-user-property-mapper"
           ]
         }
       },
@@ -1610,13 +1692,13 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-user-attribute-mapper",
+            "saml-role-list-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
             "saml-user-property-mapper",
             "oidc-full-name-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
+            "saml-user-attribute-mapper",
             "oidc-usermodel-attribute-mapper",
             "oidc-address-mapper",
-            "saml-role-list-mapper",
             "oidc-usermodel-property-mapper"
           ]
         }
@@ -2359,15 +2441,25 @@
   "firstBrokerLoginFlow": "first broker login",
   "attributes": {
     "cibaBackchannelTokenDeliveryMode": "poll",
-    "cibaExpiresIn": "120",
     "cibaAuthRequestedUserHint": "login_hint",
-    "oauth2DeviceCodeLifespan": "600",
+    "clientOfflineSessionMaxLifespan": "0",
     "oauth2DevicePollingInterval": "5",
-    "parRequestUriLifespan": "60",
+    "clientSessionIdleTimeout": "0",
+    "actionTokenGeneratedByUserLifespan.verify-email": "",
+    "actionTokenGeneratedByUserLifespan.idp-verify-account-via-email": "",
+    "clientOfflineSessionIdleTimeout": "0",
+    "actionTokenGeneratedByUserLifespan.execute-actions": "",
     "cibaInterval": "5",
-    "realmReusableOtpCode": "false"
+    "realmReusableOtpCode": "false",
+    "cibaExpiresIn": "120",
+    "oauth2DeviceCodeLifespan": "864000",
+    "parRequestUriLifespan": "60",
+    "clientSessionMaxLifespan": "0",
+    "organizationsEnabled": "false",
+    "shortVerificationUri": "",
+    "actionTokenGeneratedByUserLifespan.reset-credentials": ""
   },
-  "keycloakVersion": "25.0.4",
+  "keycloakVersion": "25.0.6",
   "userManagedAccessAllowed": false,
   "organizationsEnabled": false,
   "clientProfiles": {
