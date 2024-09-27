@@ -1,5 +1,5 @@
 server:
-  port: 8383
+  port: 8083
 
 spring:
   application:
@@ -20,11 +20,6 @@ spring:
           predicates:
             - Path=/price/**
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://host.docker.internal:8090/realms/tees
 
 logging:
   level:
