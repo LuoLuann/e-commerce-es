@@ -1,0 +1,24 @@
+dependencies:
+- name: common
+  repository: file://../../common
+  version: 0.1.0
+- name: catalog
+  repository: file://../../components/catalog
+  version: 0.1.0
+- name: gateway
+  repository: file://../../components/gateway
+  version: 0.1.0
+- name: inventory
+  repository: file://../../components/inventory
+  version: 0.1.0
+- name: postgres
+  repository: file://../../components/postgres
+  version: 0.1.0
+- name: price
+  repository: file://../../components/price
+  version: 0.1.0
+- name: rabbitmq
+  repository: file://../../components/rabbitmq
+  version: 0.1.0
+digest: sha256:72815f50bcd0ca1e80a8bec67ef34f576b59405e862f9406a157c31b7d5f0694
+generated: "2024-09-26T18:46:44.1547188-03:00"
