@@ -1,0 +1,33 @@
+apiVersion: v2
+name: dev-env
+description: A Helm chart for Kubernetes
+version: 0.1.0
+
+dependencies:
+  - name: common
+    version: 0.1.0
+    repository: file://../../common
+
+  - name: catalog
+    version: 0.1.0
+    repository: file://../../components/catalog
+
+  - name: gateway
+    version: 0.1.0
+    repository: file://../../components/gateway
+
+  - name: inventory
+    version: 0.1.0
+    repository: file://../../components/inventory
+
+  - name: postgres
+    version: 0.1.0
+    repository: file://../../components/postgres
+
+  - name: price
+    version: 0.1.0
+    repository: file://../../components/price
+
+  - name: rabbitmq
+    version: 0.1.0
+    repository: file://../../components/rabbitmq

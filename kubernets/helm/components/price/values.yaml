@@ -1,0 +1,39 @@
+fullnameOverride: price
+
+image:
+  name: price
+
+ports:
+  - containerPort: 8081
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+  SPRING_DATASOURCE_URL: "jdbc:postgresql://postgres-db:5432/eCommerce"
+  SPRING_DATASOURCE_USERNAME: "postgres"
+  SPRING_DATASOURCE_PASSWORD: "password"
+  SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: "price_schema"
+
+# Service Account configuration
+serviceAccount:
+  create: false  # Deixei como false, você pode ativar se precisar criar uma service account
+  name: ""
+
+ingress:
+  enabled: false
+
+service:
+  type: LoadBalancer
+  ports:
+    - port: 8081
+      targetPort: 8081
+      protocol: TCP
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
