@@ -20,5 +20,8 @@ dependencies:
 - name: rabbitmq
   repository: file://../../components/rabbitmq
   version: 0.1.0
-digest: sha256:72815f50bcd0ca1e80a8bec67ef34f576b59405e862f9406a157c31b7d5f0694
-generated: "2024-09-27T10:32:57.029770825-03:00"
+- name: auth
+  repository: file://../../components/auth
+  version: 0.1.0
+digest: sha256:8ef1037e2445d516d7ce1889a5dbee5f80f3ed8905991a58125e9eeb71f5ae03
+generated: "2024-09-27T13:57:14.827684985-03:00"

@@ -1,0 +1,36 @@
+fullnameOverride: auth
+
+image:
+  repository: e-commerce-es-auth
+  tag: latest
+  pullPolicy: IfNotPresent
+
+ports:
+  - containerPort: 8084
+
+env:
+  SPRING_PROFILES_ACTIVE: "docker"
+
+
+serviceAccount:
+  create: false
+
+autoscaling:
+  enabled: false
+
+configmap:
+  enabled: false
+
+service:
+  type: LoadBalancer
+  ports:
+    - port: 8084
+      targetPort: 8084
+      protocol: TCP
+
+livenessProbe_enabled: true
+
+readinessProbe_enabled: true
+
+ingress:
+  enabled: false

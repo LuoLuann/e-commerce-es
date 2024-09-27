@@ -99,7 +99,7 @@ services:
     build: ./config/keycloak-custom
     command: ["start-dev", "--import-realm"] # Define o comando para importar o realm na inicialização
     ports:
-      - "8089:8089"
+      - "8089:8080"
     networks:
       - ecommerce-networks
     environment:
@@ -117,7 +117,7 @@ services:
       - ./auth/realm-export.json:/opt/keycloak/realm-export.json
     depends_on:
       - keycloak-db
-      
+
   auth:
     build: auth
     mem_limit: 512m
