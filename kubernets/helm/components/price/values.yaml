@@ -1,7 +1,7 @@
 fullnameOverride: price
 
 image:
-  repository: e-commerce-es-inventory
+  repository: localhost:5000/e-commerce-es-price
   tag: latest
   pullPolicy: IfNotPresent
 
