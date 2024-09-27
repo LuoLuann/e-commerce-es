@@ -1,7 +1,7 @@
 fullnameOverride: catalog
 
 image:
-  repository: localhost:5000/e-commerce-es-catalog
+  repository: e-commerce-es-catalog
   tag: latest
   pullPolicy: IfNotPresent
 

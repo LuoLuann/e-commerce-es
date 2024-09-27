@@ -1,7 +1,7 @@
 fullnameOverride: inventory
 
 image:
-  repository: localhost:5000/e-commerce-es-inventory
+  repository: e-commerce-es-inventory 
   tag: latest
   pullPolicy: IfNotPresent
 

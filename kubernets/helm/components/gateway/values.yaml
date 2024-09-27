@@ -2,7 +2,7 @@
 fullnameOverride: gateway
 
 image:
-  repository: localhost:5000/e-commerce-es-gateway
+  repository: e-commerce-es-gateway
   tag: latest
   pullPolicy: IfNotPresent
 
