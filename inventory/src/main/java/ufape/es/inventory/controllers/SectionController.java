@@ -12,6 +12,7 @@ import ufape.es.inventory.model.Section;
 import java.util.List;
 
 @RestController
+@RequestMapping("/inventory")
 public class SectionController {
 
     @Autowired

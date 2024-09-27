@@ -13,6 +13,7 @@ import ufape.es.inventory.model.Warehouse;
 import java.util.List;
 
 @RestController
+@RequestMapping("/inventory")
 public class WarehouseController {
 
     @Autowired

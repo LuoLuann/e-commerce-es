@@ -8,15 +8,15 @@ spring:
     gateway:
       routes:
         - id: catalog
-          uri: lb://catalog
+          uri: http://catalog:8080
           predicates:
             - Path=/catalog/**
         - id: inventory
-          uri: lb://inventory
+          uri: http://inventory:8082
           predicates:
             - Path=/inventory/**
         - id: price
-          uri: lb://price
+          uri: http://price:8081
           predicates:
             - Path=/price/**
 

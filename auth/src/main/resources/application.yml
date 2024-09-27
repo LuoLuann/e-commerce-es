@@ -15,11 +15,11 @@ spring:
             scope: openid
         provider:
           keycloak:
-            issuer-uri: http://localhost:8090/realms/tees
+            issuer-uri: http://localhost:8089/realms/tees
             user-name-attribute: preferred_username
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8090/realms/tees/protocol/openid-connect/certs
+          jwk-set-uri: http://localhost:8089/realms/tees/protocol/openid-connect/certs
 
 ---
 
@@ -34,7 +34,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://keycloak:8080/realms/tees/protocol/openid-connect/certs
+          jwk-set-uri: http://keycloak:8089/realms/tees/protocol/openid-connect/certs
       client:
         registration:
           keycloak:
@@ -43,5 +43,5 @@ spring:
             scope: openid
         provider:
           keycloak:
-            issuer-uri: http://keycloak:8080/realms/tees
+            issuer-uri: http://keycloak:8089/realms/tees
             user-name-attribute: preferred_username

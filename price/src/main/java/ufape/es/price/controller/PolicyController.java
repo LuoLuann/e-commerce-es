@@ -16,6 +16,7 @@ import ufape.es.price.model.Policy;
 import java.util.List;
 
 @RestController
+@RequestMapping("/price")
 public class PolicyController {
     @Autowired
     private Facade facade;

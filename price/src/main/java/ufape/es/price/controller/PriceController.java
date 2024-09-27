@@ -14,6 +14,7 @@ import ufape.es.price.model.Price;
 import java.util.List;
 
 @RestController
+@RequestMapping("/price")
 public class PriceController{
     @Autowired
     private Facade facade;

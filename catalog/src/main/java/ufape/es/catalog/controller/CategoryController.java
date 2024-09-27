@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ufape.es.catalog.model.Category;
@@ -19,6 +20,7 @@ import jakarta.validation.Valid;
 
 
 @RestController
+@RequestMapping("/catalog")
 public class CategoryController {
     @Autowired
     private Catalog catalog;

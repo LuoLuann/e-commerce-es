@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
@@ -29,6 +30,7 @@ import ufape.es.core.event.Publisher;
 import ufape.es.catalog.model.Product;
 
 @RestController
+@RequestMapping("/catalog")
 public class ProductController {
     @Autowired
     private Catalog facade;

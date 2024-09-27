@@ -21,11 +21,9 @@ service:
       targetPort: 5432
       protocol: TCP
 
-ingress:
-  enabled: false
-
 configmap:
-  enabled: false
+  name: postgres-initdb
+  enabled: true
 
 volumes:
   data:
@@ -37,25 +35,13 @@ resources:
   limits:
     memory: "512Mi"
 
-livenessProbe_enabled: true
 livenessProbe:
-  exec:
-    command:
-      - "pg_isready"
-      - "-U"
-      - "postgres"
   initialDelaySeconds: 30
   periodSeconds: 10
   failureThreshold: 5
   timeoutSeconds: 5
 
-readinessProbe_enabled: true
 readinessProbe:
-  exec:
-    command:
-      - "pg_isready"
-      - "-U"
-      - "postgres"
   initialDelaySeconds: 30
   periodSeconds: 10
   failureThreshold: 5
@@ -67,3 +53,5 @@ autoscaling:
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
 
+ingress:
+  enabled: false
