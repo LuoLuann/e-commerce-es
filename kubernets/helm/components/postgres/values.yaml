@@ -1,8 +1,8 @@
 fullnameOverride: postgres
 
 image:
-  repository: e-commerce-es-postgres
-  tag: latest
+  repository: postgres
+  tag: "16.0"
   pullPolicy: IfNotPresent
 
 env:
