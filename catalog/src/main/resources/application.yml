@@ -6,7 +6,7 @@ spring:
     name: catalog
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres-db:5432/eCommerce
+    url: jdbc:postgresql://postgres:5432/eCommerce
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:
@@ -44,7 +44,7 @@ spring:
     name: catalog
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres-db:5432/eCommerce
+    url: jdbc:postgresql://postgres:5432/eCommerce
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
   jpa:

@@ -15,12 +15,12 @@ env:
 livenessProbe_enabled: true
 livenessProbe:
   httpGet:
-    scheme: HTTPS
+    path: /health
     port: 8083
 readinessProbe_enabled: true
 readinessProbe:
   httpGet:
-    scheme: HTTPS
+    path: /health
     port: 8083
 
 serviceAccount:
