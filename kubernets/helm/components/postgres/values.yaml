@@ -1,0 +1,68 @@
+fullnameOverride: postgres
+
+image:
+  repository: postgres
+  tag: "16.0"
+  pullPolicy: IfNotPresent
+
+env:
+  POSTGRES_DB: "eCommerce"
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "password"
+  TZ: "America/Sao_Paulo"
+
+ports:
+  - containerPort: 5432
+
+service:
+  type: ClusterIP
+  ports:
+    - port: 5433
+      targetPort: 5432
+      protocol: TCP
+
+
+
+ingress:
+  enabled: false
+
+volumes:
+  data:
+    mountPath: /var/lib/postgresql/data
+  initdb:
+    mountPath: /docker-entrypoint-initdb.d
+
+resources:
+  limits:
+    memory: "512Mi"
+
+livenessProbe_enabled: true
+livenessProbe:
+  exec:
+    command:
+      - "pg_isready"
+      - "-U"
+      - "postgres"
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 5
+  timeoutSeconds: 5
+
+readinessProbe_enabled: true
+readinessProbe:
+  exec:
+    command:
+      - "pg_isready"
+      - "-U"
+      - "postgres"
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 5
+  timeoutSeconds: 5
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
