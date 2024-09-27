@@ -10,6 +10,7 @@ import ufape.es.catalog.model.Product;
 
 @Getter @Setter
 public class ProductRequest {
+    private Long id;
     private String description;
     private String image;
     @NotNull(message = "Name cannot be null when creating a policy.")

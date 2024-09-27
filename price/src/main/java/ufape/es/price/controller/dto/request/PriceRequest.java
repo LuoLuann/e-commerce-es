@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 
 @Data
 public class PriceRequest {
+    private Long id;
     @NotNull(message = "Base price cannot be null when creating a price.")
     @Positive(message = "The base price cannot be negative.")
     private BigDecimal basePrice;
@@ -18,6 +19,7 @@ public class PriceRequest {
     private String priceType;
     @NotNull(message = "Product ID cannot be null when creating a price.")
     private Long productId;
+    private Long policyId;
 
     public Price convertToEntity() {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");

@@ -10,9 +10,9 @@ import ufape.es.inventory.model.Section;
 @Data
 public class SectionRequest {
 
+    private Long id;
     @NotBlank(message = "Name cannot be blank when creating a section.")
     private String name;
-
     @NotNull(message = "Warehouse ID cannot be null when creating a section.")
     private Long warehouseId;
 

@@ -11,4 +11,5 @@ import ufape.es.catalog.model.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByDescriptionContainingIgnoreCase(String description);
     List<Product> findByCategory_Name(String name);
+    Product findByNameIgnoreCaseAndCategoryId(String name, Long categoryId);
 }

@@ -9,21 +9,19 @@ import ufape.es.inventory.model.Inventory;
 @Data
 public class InventoryRequest {
 
+    private Long id;
     @NotNull(message = "Product ID cannot be null when creating an inventory.")
     private Long productId;
-
     @NotNull(message = "Quantity cannot be null when creating an inventory.")
     private Long quantity;
-
     private Long maximumProducts;
     private Long minimumProducts;
-
     @NotNull(message = "Warehouse ID cannot be null when creating an inventory.")
     private Long warehouseId;
-
     @NotNull(message = "Section ID cannot be null when creating an inventory.")
     private Long sectionId;
 
+    
     public Inventory convertToEntity() {
         ModelMapper modelMapper = (ModelMapper) SpringApplicationContext.getBean("modelMapper");
         Inventory inventory = modelMapper.map(this, Inventory.class);

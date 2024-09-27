@@ -27,7 +27,11 @@ public class ProductService implements ProductServiceInterface {
 
     @Override
     public Product saveProduct(Product entity) {
-        return productRepository.save(entity);
+        if (productRepository.findByNameIgnoreCaseAndCategoryId(entity.getName(), entity.getCategory().getId()) == null) {
+            return productRepository.save(entity);
+        } else {
+            throw new DuplicateRecordException("The product [" + entity.getName() + "] is already registered in the system.");
+        }
     }
 
     @Override

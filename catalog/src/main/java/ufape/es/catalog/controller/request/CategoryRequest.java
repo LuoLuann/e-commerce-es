@@ -10,6 +10,7 @@ import ufape.es.catalog.model.Category;
 
 @Getter @Setter
 public class CategoryRequest {
+    private Long id;
     @NotBlank(message = "The category name is required")
     private String name;
     private String description;

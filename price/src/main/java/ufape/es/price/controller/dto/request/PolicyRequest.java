@@ -8,6 +8,7 @@ import ufape.es.price.model.Policy;
 
 @Data
 public class PolicyRequest {
+    private Long id;
     private String description;
     @NotNull(message = "Type cannot be null when creating a policy.")
     private String type;

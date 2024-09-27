@@ -9,6 +9,7 @@ import ufape.es.inventory.model.Warehouse;
 
 @Data
 public class WarehouseRequest {
+    private Long id;
     @NotBlank(message = "Name cannot be blank when creating a warehouse.")
     private String name;
     @NotBlank(message = "Location cannot be blank when creating a warehouse.")
