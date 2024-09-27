@@ -68,4 +68,4 @@ spring:
     database: postgresql
 
 spring.rabbitmq:
-  host: message
+  host: rabbitmq

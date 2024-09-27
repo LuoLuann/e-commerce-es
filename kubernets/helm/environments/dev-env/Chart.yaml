@@ -31,8 +31,4 @@ dependencies:
   - name: rabbitmq
     version: 0.1.0
     repository: file://../../components/rabbitmq
-  
-  - name: auth
-    version: 0.1.0
-    repository: file://../../components/auth
-
+ 

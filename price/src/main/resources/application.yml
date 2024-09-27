@@ -73,4 +73,4 @@ spring:
 
 
 spring.rabbitmq:
-  host: message
+  host: rabbitmq
