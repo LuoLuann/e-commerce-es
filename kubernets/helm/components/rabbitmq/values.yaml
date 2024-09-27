@@ -1,9 +1,8 @@
 fullnameOverride: rabbitmq
 
 image:
-  repository: registry.hub.docker.com/library
-  name: rabbitmq
-  tag: 3.8.11-management  # Você pode usar 3-management ou a tag que preferir
+  repository: localhost:5000/e-commerce-es-rabbitmq
+  tag: latest  # Você pode usar 3-management ou a tag que preferir
   pullPolicy: IfNotPresent
 
 ports:
@@ -34,6 +33,9 @@ serviceAccount:
   create: false
 
 ingress:
+  enabled: false
+
+configmap:
   enabled: false
 
 autoscaling:

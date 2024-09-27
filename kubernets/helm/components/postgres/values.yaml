@@ -1,8 +1,8 @@
 fullnameOverride: postgres
 
 image:
-  repository: postgres
-  tag: "16.0"
+  repository: e-commerce-es-postgres
+  tag: latest
   pullPolicy: IfNotPresent
 
 env:
@@ -21,9 +21,10 @@ service:
       targetPort: 5432
       protocol: TCP
 
-
-
 ingress:
+  enabled: false
+
+configmap:
   enabled: false
 
 volumes:
