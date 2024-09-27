@@ -23,3 +23,6 @@ service:
 livenessProbe_enabled: true
 
 readinessProbe_enabled: true
+
+ingress:
+  enabled: false

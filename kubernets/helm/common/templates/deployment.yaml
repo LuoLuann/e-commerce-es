@@ -14,7 +14,7 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount | nindent 2 }}
+  replicas: {{ .Values.replicaCount | quote }}  # Corrigido para ser tratado como string
   {{- end }}
   selector:
     matchLabels:
@@ -35,7 +35,6 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "common.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -76,5 +75,5 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-  {{- end -}}
-  {{- end -}}
+  {{- end }}
+{{- end }}

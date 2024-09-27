@@ -20,6 +20,15 @@ service:
       targetPort: 8082
       protocol: TCP
 
+ingress:
+  enabled: false
+
 livenessProbe_enabled: true
 
 readinessProbe_enabled: true
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80

@@ -1,0 +1,43 @@
+fullnameOverride: rabbitmq
+
+image:
+  repository: registry.hub.docker.com/library
+  name: rabbitmq
+  tag: 3.8.11-management  # Você pode usar 3-management ou a tag que preferir
+  pullPolicy: IfNotPresent
+
+ports:
+  - containerPort: 5672  # Porta padrão do RabbitMQ
+  - containerPort: 15672 # Porta da interface de gerenciamento
+
+readinessProbe_enabled: true
+readinessProbe:
+  httpGet:
+    scheme: HTTP
+    path: "/api/aliveness-test/%2F"
+    port: 15672
+    httpHeaders:
+      - name: Authorization
+        value: Basic Z3Vlc3Q6Z3Vlc3Q=  # Senha base64 (guest:guest)
+  initialDelaySeconds: 10
+  periodSeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 20
+
+service:
+  ports:
+    - name: tcp-not-secure
+      port: 5672  # Porta de uso normal do RabbitMQ
+    - name: http-mgm-ui
+      port: 15672 # Porta da interface de gerenciamento
+serviceAccount:
+  create: false
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80

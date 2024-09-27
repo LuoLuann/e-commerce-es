@@ -27,3 +27,12 @@ service:
     - port: 8083
       targetPort: 8383
       protocol: TCP
+
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
