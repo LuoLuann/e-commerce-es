@@ -7,11 +7,12 @@
   <name>ecommerce</name>
 
   <modules>
+    <module>core</module>
     <module>inventory</module>
     <module>catalog</module>
     <module>price</module>
-    <module>core</module>
     <module>gateway</module>
+    <module>auth</module>
 
   </modules>
 
