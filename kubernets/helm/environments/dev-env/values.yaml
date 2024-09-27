@@ -1,14 +1,3 @@
-# Definindo segredos para o ambiente de desenvolvimento
-secrets:
-  postgres-secrets:
-    POSTGRES_DB: eCommerce
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: password
-
-  rabbitmq-secrets:
-    RABBITMQ_DEFAULT_USER: guest
-    RABBITMQ_DEFAULT_PASS: guest
-
 # Configuração do PostgreSQL
 postgres:
   env:
@@ -34,20 +23,29 @@ rabbitmq:
 
 # Configurações do Catalog Service
 catalog:
-  envFromSecretRefs:
-    - postgres-secrets
+  env:
+    POSTGRES_DB: "eCommerce"
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "password"
 
 # Configurações do Gateway Service
 gateway:
-  envFromSecretRefs:
-    - postgres-secrets
+  env:
+    POSTGRES_DB: "eCommerce"
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "password"
 
 # Configurações do Inventory Service
 inventory:
-  envFromSecretRefs:
-    - postgres-secrets
+  env:
+    POSTGRES_DB: "eCommerce"
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "password"
 
 # Configurações do Price Service
 price:
-  envFromSecretRefs:
-    - postgres-secrets
+  env:
+    POSTGRES_DB: "eCommerce"
+    POSTGRES_USER: "postgres"
+    POSTGRES_PASSWORD: "password"
+

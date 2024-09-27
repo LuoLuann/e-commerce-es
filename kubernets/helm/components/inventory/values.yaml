@@ -1,7 +1,9 @@
 fullnameOverride: inventory
 
 image:
-  name: inventory
+  repository: e-commerce-es-inventory
+  tag: latest
+  pullPolicy: IfNotPresent
 
 ports:
   - containerPort: 8082
@@ -12,6 +14,12 @@ env:
   SPRING_DATASOURCE_USERNAME: "postgres"
   SPRING_DATASOURCE_PASSWORD: "password"
   SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: "inventory_schema"
+
+serviceAccount:
+  create: false
+
+configmap:
+  enabled: false
 
 service:
   type: LoadBalancer

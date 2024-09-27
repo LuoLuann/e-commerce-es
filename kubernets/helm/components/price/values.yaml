@@ -1,7 +1,9 @@
 fullnameOverride: price
 
 image:
-  name: price
+  repository: e-commerce-es-inventory
+  tag: latest
+  pullPolicy: IfNotPresent
 
 ports:
   - containerPort: 8081
@@ -21,6 +23,9 @@ serviceAccount:
 ingress:
   enabled: false
 
+configmap:
+  enabled: false
+  
 service:
   type: LoadBalancer
   ports:

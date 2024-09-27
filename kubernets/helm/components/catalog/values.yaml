@@ -1,7 +1,9 @@
 fullnameOverride: catalog
 
 image:
-  name: catalog
+  repository: e-commerce-es-catalog
+  tag: latest
+  pullPolicy: IfNotPresent
 
 ports:
   - containerPort: 8080
@@ -12,6 +14,15 @@ env:
   SPRING_DATASOURCE_USERNAME: "postgres"
   SPRING_DATASOURCE_PASSWORD: "password"
   SPRING_JPA_PROPERTIES_HIBERNATE_DEFAULT_SCHEMA: "catalog_schema"
+
+serviceAccount:
+  create: false
+
+autoscaling:
+  enabled: false
+
+configmap:
+  enabled: false
 
 service:
   type: LoadBalancer

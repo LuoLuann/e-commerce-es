@@ -21,9 +21,10 @@ service:
       targetPort: 5432
       protocol: TCP
 
-
-
 ingress:
+  enabled: false
+
+configmap:
   enabled: false
 
 volumes:

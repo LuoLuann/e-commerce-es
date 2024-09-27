@@ -2,7 +2,9 @@
 fullnameOverride: gateway
 
 image:
-  name: gateway
+    repository: e-commerce-es-gateway
+    tag: latest
+    pullPolicy: IfNotPresent
 
 ports:
   - containerPort: 8083
@@ -20,6 +22,12 @@ readinessProbe:
   httpGet:
     scheme: HTTPS
     port: 8083
+
+serviceAccount:
+  create: false
+
+configmap:
+  enabled: false
 
 service:
   type: LoadBalancer

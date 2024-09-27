@@ -36,6 +36,9 @@ serviceAccount:
 ingress:
   enabled: false
 
+configmap:
+  enabled: false
+  
 autoscaling:
   enabled: false
   minReplicas: 1
